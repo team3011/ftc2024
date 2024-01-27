@@ -7,6 +7,7 @@ import java.lang.Math;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.RobotConstants;
 public class DriveSystem {
@@ -14,23 +15,23 @@ public class DriveSystem {
     public float xValue = 0;
     public float yValue = 0;
     public float yawValue = 0;
-    MotorEx frontLeft;
-    MotorEx frontRight;
-    MotorEx backLeft;
-    MotorEx backRight;
+    DcMotorEx frontLeft;
+    DcMotorEx frontRight;
+    DcMotorEx backLeft;
+    DcMotorEx backRight;
     AHRS navX;
 
 
-    public DriveSystem(MotorEx fL, MotorEx fR, MotorEx bL, MotorEx bR) {
+    public DriveSystem(DcMotorEx fL, DcMotorEx fR, DcMotorEx bL, DcMotorEx bR) {
         this.frontLeft = fL;
         this.frontRight = fR;
         this.backLeft = bL;
         this.backRight = bR;
 
-        this.frontLeft.setRunMode(Motor.RunMode.RawPower);
+       /* this.frontLeft.(Motor.RunMode.RawPower);
         this.frontRight.setRunMode(Motor.RunMode.RawPower);
         this.backLeft.setRunMode(Motor.RunMode.RawPower);
-        this.backRight.setRunMode(Motor.RunMode.RawPower);
+        this.backRight.setRunMode(Motor.RunMode.RawPower);*/
     }
 
 
@@ -89,13 +90,13 @@ public class DriveSystem {
                 rightFrontPower = yaw/-10;
             }
         }
-        this.frontLeft.set(leftFrontPower);
+        this.frontLeft.setPower(leftFrontPower);
         // frontLeft = y - x
-        this.frontRight.set(rightFrontPower);
+        this.frontRight.setPower(rightFrontPower);
         // frontRight = y + x
-        this.backLeft.set(leftBackPower);
+        this.backLeft.setPower(leftBackPower);
         // backleft = -y - x
-        this.backRight.set(rightBackPower);
+        this.backRight.setPower(rightBackPower);
         // backright = -y + x
     }
 
