@@ -73,6 +73,8 @@ public class hellonearth extends LinearOpMode {
     DriveSystem driveTrain;
     MotorEx motor;
 
+    Shoulder shoulder;
+
     // Define class members
     Wrist wrist;
     Servo   servo;
