@@ -106,6 +106,7 @@ public class hellonearth extends LinearOpMode {
         Servo nerd = hardwareMap.get(Servo.class, "servo");
         Servo left = hardwareMap.get(Servo.class, "left");
         Servo right = hardwareMap.get(Servo.class, "right");
+        Shoulder shoulder = new Shoulder(fuck,TouchSensor touch);
         this.driveTrain = new DriveSystem(frontLeft, frontRight, backLeft, backRight);
         this.navX = AHRS.getInstance(hardwareMap.get(NavxMicroNavigationSensor.class, "navx"), AHRS.DeviceDataType.kProcessedData);
         this.main = new Wrist(left, right);
