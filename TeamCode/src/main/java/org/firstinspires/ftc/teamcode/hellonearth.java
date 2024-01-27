@@ -160,7 +160,7 @@ public class hellonearth extends LinearOpMode {
             this.main.moveWrist(wposition);
             this.ourArm.update();
             nerd.setPosition(position);
-            motor.set(gamepad1.left_stick_y*MULTIPLIER);
+       //     motor.set(gamepad1.left_stick_y*MULTIPLIER);
             fuck.set(gamepad1.right_stick_y*MULTIPLIER);
             sleep(CYCLE_MS);
             idle();
