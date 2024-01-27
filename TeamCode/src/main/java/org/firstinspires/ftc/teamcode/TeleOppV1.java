@@ -30,7 +30,11 @@ public class TeleOppV1  extends LinearOpMode {
             if (Math.abs(left_y)<0.1){
                 left_y = 0;
             }
-            shoulder.moveShoulderManual(left_y);
+            if (gamepad1.a) {
+                shoulder.moveToEncoder(-2000);
+            }
+
+            //shoulder.moveShoulderManual(left_y);
             telemetry.addData("Position", shoulder.getEncoderValue() );
             telemetry.addData("Sensor", shoulder.getTouchValue());
             telemetry.addData("stick", left_y);

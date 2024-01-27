@@ -38,4 +38,10 @@ public class Shoulder {
         }
     }
 
+    public void moveToEncoder(int input){
+        this.motor.setTargetPosition(input);
+        this.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.motor.setPower(.25);
+    }
+
 }
