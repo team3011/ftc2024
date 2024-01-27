@@ -7,17 +7,13 @@ import com.acmerobotics.roadrunner.control.PIDFController;
 import com.acmerobotics.roadrunner.profile.MotionProfile;
 import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
 import com.acmerobotics.roadrunner.profile.MotionState;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.robotConstants;
 
-public class liftSystem {
+public class LiftSystem {
     public boolean resetting = false;
     private ElapsedTime resettingTimer;
     public MotorEx leftSlider = null;
@@ -33,7 +29,7 @@ public class liftSystem {
     private double leftPower = 0;
     private double rightPower = 0;
 
-    public liftSystem(MotorEx left, MotorEx right, TouchSensor leftT, TouchSensor rightT) {
+    public LiftSystem(MotorEx left, MotorEx right, TouchSensor leftT, TouchSensor rightT) {
         this.leftSlider = left;
         this.rightSlider = right;
         this.leftSense = leftT;

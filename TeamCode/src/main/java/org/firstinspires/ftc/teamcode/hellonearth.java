@@ -35,15 +35,13 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.robot.subsytems.arm;
-import org.firstinspires.ftc.teamcode.robot.subsytems.driveSystem;
-import org.firstinspires.ftc.teamcode.robot.subsytems.wrist;
+import org.firstinspires.ftc.teamcode.robot.subsytems.Shoulder;
+import org.firstinspires.ftc.teamcode.robot.subsytems.Arm;
+import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystem;
+import org.firstinspires.ftc.teamcode.robot.subsytems.Wrist;
 
 import java.text.DecimalFormat;
 
@@ -71,12 +69,12 @@ public class hellonearth extends LinearOpMode {
     static final int    CYCLE_MS    =   50;     // period of each cycle
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
-    private wrist main;
-    driveSystem driveTrain;
+    private Wrist main;
+    DriveSystem driveTrain;
     MotorEx motor;
 
     // Define class members
-    wrist wrist;
+    Wrist wrist;
     Servo   servo;
     Servo servo2;
     double  position;
@@ -84,8 +82,9 @@ public class hellonearth extends LinearOpMode {
     double  aposition;
     boolean rampUp = true;
     AHRS navX;
-    arm ourArm;
+    Arm ourArm;
     String yaw;
+    Shoulder newShould;
 
 
     @Override
@@ -105,12 +104,12 @@ public class hellonearth extends LinearOpMode {
         Servo nerd = hardwareMap.get(Servo.class, "servo");
         Servo left = hardwareMap.get(Servo.class, "left");
         Servo right = hardwareMap.get(Servo.class, "right");
-        this.driveTrain = new driveSystem(frontLeft, frontRight, backLeft, backRight);
+        this.driveTrain = new DriveSystem(frontLeft, frontRight, backLeft, backRight);
         this.navX = AHRS.getInstance(hardwareMap.get(NavxMicroNavigationSensor.class, "navx"), AHRS.DeviceDataType.kProcessedData);
-        this.main = new wrist(left, right);
+        this.main = new Wrist(left, right);
         this.main.moveWrist(.5);
         fuck.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        this.ourArm = new arm(motor);
+        this.ourArm = new Arm(motor);
         DecimalFormat df = new DecimalFormat("#.##");
         // Wait for the start button
         telemetry.addData(">", "Press Start to scan Servo." );
@@ -159,7 +158,7 @@ public class hellonearth extends LinearOpMode {
             this.driveTrain.moveMethod(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, this.navX.getYaw());
             this.main.moveWrist(wposition);
             this.ourArm.update();
-            nerd.setPosition(position);
+            //nerd.setPosition(position);
        //     motor.set(gamepad1.left_stick_y*MULTIPLIER);
             fuck.set(gamepad1.right_stick_y*MULTIPLIER);
             sleep(CYCLE_MS);

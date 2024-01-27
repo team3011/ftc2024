@@ -3,23 +3,13 @@ package org.firstinspires.ftc.teamcode.robot.subsytems;
 
 
 import java.lang.Math;
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.control.PIDFController;
-import com.acmerobotics.roadrunner.profile.MotionProfile;
-import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
-import com.acmerobotics.roadrunner.profile.MotionState;
+
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.kauailabs.navx.ftc.AHRS;
-import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.robotConstants;
-public class driveSystem {
+public class DriveSystem {
 
     public float xValue = 0;
     public float yValue = 0;
@@ -31,7 +21,7 @@ public class driveSystem {
     AHRS navX;
 
 
-    public driveSystem(MotorEx fL, MotorEx fR, MotorEx bL, MotorEx bR) {
+    public DriveSystem(MotorEx fL, MotorEx fR, MotorEx bL, MotorEx bR) {
         this.frontLeft = fL;
         this.frontRight = fR;
         this.backLeft = bL;

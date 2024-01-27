@@ -1,23 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot.subsytems;
 
 import com.qualcomm.robotcore.hardware.Servo;
-import java.lang.Math;
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.control.PIDFController;
-import com.acmerobotics.roadrunner.profile.MotionProfile;
-import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
-import com.acmerobotics.roadrunner.profile.MotionState;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.robotConstants;
-
-public class wrist {
+public class Wrist {
 
     public Servo leftWrist;
     public Servo rightWrist;
@@ -25,7 +10,7 @@ public class wrist {
     private double target2;
 
 
-    public wrist(Servo leftJoint, Servo rightJoint) {
+    public Wrist(Servo leftJoint, Servo rightJoint) {
         this.leftWrist = leftJoint;
         this.rightWrist = rightJoint;
 

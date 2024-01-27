@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot.subsytems;
 
-public class sliders {
+public class Sliders {
 
-    public sliders(int def) {
+    public Sliders(int def) {
 
     }
 

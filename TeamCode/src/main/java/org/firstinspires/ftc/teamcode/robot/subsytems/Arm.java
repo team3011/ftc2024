@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.robotConstants;
 
-public class arm {
+public class Arm {
     public boolean resetting = false;
     private ElapsedTime resettingTimer;
     public MotorEx motor;
@@ -27,7 +27,7 @@ public class arm {
     private double leftPower = 0;
     private double rightPower = 0;
 
-    public arm(MotorEx motor) {
+    public Arm(MotorEx motor) {
         this.motor = motor;
 
         this.motor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
