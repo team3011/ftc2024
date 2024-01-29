@@ -37,8 +37,9 @@ public class TeleOppV1 extends LinearOpMode {
                 hardwareMap.get(DcMotorEx.class, "frontRight"),
                 hardwareMap.get(DcMotorEx.class, "backLeft"),
                 hardwareMap.get(DcMotorEx.class, "backRight"));
-        AHRS navx = AHRS.getInstance(hardwareMap.get(NavxMicroNavigationSensor.class, "navx"), AHRS.DeviceDataType.kProcessedData);
-
+        AHRS navx = AHRS.getInstance(
+                hardwareMap.get(NavxMicroNavigationSensor.class, "navx"),
+                AHRS.DeviceDataType.kProcessedData);
 
         waitForStart();
         //arm.setPosition(RobotConstants.arm_minPos);
@@ -50,6 +51,7 @@ public class TeleOppV1 extends LinearOpMode {
             float left_x = gamepad1.left_stick_x;
             float right_x = gamepad1.right_stick_x;
             float yawCurr = navx.getYaw();
+
             if (Math.abs(left_y)<0.1){
                 left_y = 0;
             }
@@ -62,6 +64,7 @@ public class TeleOppV1 extends LinearOpMode {
             if (Math.abs(right_x)<0.1){
                 right_x = 0;
             }
+
             if (gamepad1.a) {
                 //shoulder.setPosition(RobotConstants.shoulder_dropOffPos);
                 claw.closeBottom();
