@@ -61,7 +61,7 @@ public class test extends LinearOpMode {
 
 
 
-    private LiftSystem lifter;
+    //private LiftSystem lifter;
     private DriveSystem driveTrain;
     /* Declare OpMode members. */
     //public DcMotor  leftDrive   = null;
