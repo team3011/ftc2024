@@ -57,7 +57,7 @@ public class Shoulder {
     }
 
     //input > 0 shoulder goes down
-    public void moveShoulderManual(double input){
+    public void moveManual(double input){
         if (this.touch.isPressed() && input > 0){
             this.motor.setPower(0);
             this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

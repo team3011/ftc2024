@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.teamcode.robot.subsytems.ArmV2;
 import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystem;
 import org.firstinspires.ftc.teamcode.robot.subsytems.JulliansClaw;
+import org.firstinspires.ftc.teamcode.robot.subsytems.Lift;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Shoulder;
 
 @TeleOp(name = "TeleOppV1", group = "Robot")
@@ -40,6 +41,8 @@ public class TeleOppV1 extends LinearOpMode {
         AHRS navx = AHRS.getInstance(
                 hardwareMap.get(NavxMicroNavigationSensor.class, "navx"),
                 AHRS.DeviceDataType.kProcessedData);
+        Lift lift = new Lift(
+                hardwareMap.get(DcMotorEx.class, "lift"));
 
         waitForStart();
         //arm.setPosition(RobotConstants.arm_minPos);
@@ -86,8 +89,8 @@ public class TeleOppV1 extends LinearOpMode {
             //double correction = shoulder.update();
             //arm.update();
 
-            arm.moveArmManual(left_y);
-            shoulder.moveShoulderManual(right_y);
+            arm.moveManual(left_y);
+            shoulder.moveManual(right_y);
             telemetry.addData("arm Position", arm.getEncoderValue() );
             telemetry.addData("arm Target",arm.getTarget());
             telemetry.addData("shoulder Position", shoulder.getEncoderValue() );
@@ -96,6 +99,5 @@ public class TeleOppV1 extends LinearOpMode {
             telemetry.addData("stick", left_y);
             telemetry.update();
         }
-
     }
 }

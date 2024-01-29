@@ -37,6 +37,17 @@ public class RobotConstants {
         public static double julliansClawOpenTop = 0.5;
         public static double julliansClawCloseTop = 0.75;
 
+    //lift constants
+        public static final double lift_kP = 0.01;
+        public static final double lift_kI = 0;
+        public static final double lift_kD = 0;
+        public static final double lift_kG = 0.025;
+        public static final int lift_maxVel = 5000;
+        public static final int lift_maxAccel = 500;
+        public static final int lift_maxJerk = 500;
+        public static int lift_maxPos = -3000;
+        public static int lift_minPos = -600;
+
     //drive constants
         public static final float yawMax = 5;
 

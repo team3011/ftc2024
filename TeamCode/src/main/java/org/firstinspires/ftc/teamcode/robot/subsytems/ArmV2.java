@@ -47,7 +47,7 @@ public class ArmV2 {
     }
 
     //input > 0 arm goes down
-    public void moveArmManual(double input){
+    public void moveManual(double input){
         this.motor.setPower(input);
     }
 
