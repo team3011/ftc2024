@@ -9,10 +9,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.robot.subsytems.ArmV2;
 import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystem;
+import org.firstinspires.ftc.teamcode.robot.subsytems.JulliansClaw;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Shoulder;
 
 @TeleOp(name = "TeleOppV1", group = "Robot")
@@ -24,6 +26,10 @@ public class TeleOppV1 extends LinearOpMode {
                 hardwareMap.get(TouchSensor.class,"shoulderSensor2"));
         ArmV2 arm = new ArmV2(
                 hardwareMap.get(DcMotorEx.class,"telescope"));
+        JulliansClaw claw = new JulliansClaw(
+                hardwareMap.get(Servo.class,"leftClaw"),
+                hardwareMap.get(Servo.class,"rightClaw"));
+
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
         DriveSystem driveTrain = new DriveSystem(
@@ -35,7 +41,7 @@ public class TeleOppV1 extends LinearOpMode {
 
 
         waitForStart();
-        arm.setPosition(RobotConstants.arm_minPos);
+        //arm.setPosition(RobotConstants.arm_minPos);
 
         // Scan servo till stop pressed.
         while(opModeIsActive()){
@@ -57,17 +63,21 @@ public class TeleOppV1 extends LinearOpMode {
                 right_x = 0;
             }
             if (gamepad1.a) {
-                shoulder.setPosition(RobotConstants.shoulder_dropOffPos);
+                //shoulder.setPosition(RobotConstants.shoulder_dropOffPos);
+                claw.closeBottom();
+                claw.closeTop();
             }
             if (gamepad1.b) {
-                shoulder.setPosition(0);
+                //shoulder.setPosition(0);
+                claw.openBottom();
+                claw.openTop();
             }
 
             if (gamepad1.x) {
-                arm.setPosition(RobotConstants.arm_maxPos);
+                //arm.setPosition(RobotConstants.arm_maxPos);
             }
             if (gamepad1.y) {
-                arm.setPosition(RobotConstants.arm_minPos);
+                //arm.setPosition(RobotConstants.arm_minPos);
             }
 
             //double correction = shoulder.update();
@@ -75,8 +85,6 @@ public class TeleOppV1 extends LinearOpMode {
 
             arm.moveArmManual(left_y);
             shoulder.moveShoulderManual(right_y);
-            driveTrain.moveMethod(left_x, left_y, right_x, yawCurr);
-
             telemetry.addData("arm Position", arm.getEncoderValue() );
             telemetry.addData("arm Target",arm.getTarget());
             telemetry.addData("shoulder Position", shoulder.getEncoderValue() );

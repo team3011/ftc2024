@@ -10,29 +10,35 @@ public class RobotConstants {
 
     //shoulder constants
         public static final double shoulder_GEAR_RATIO = (108.0/16.0)*3*3*4;
-        public static double shoulder_kP = 0.01;
-        public static double shoulder_kI = 0;
-        public static double shoulder_kD = 0;
-        public static double shoulder_kG = 0.025;
-        public static int shoulder_maxVel = 5000;
-        public static int shoulder_maxAccel = 5000;
-        public static int shoulder_maxJerk = 5000;
+        public static final double shoulder_kP = 0.01;
+        public static final double shoulder_kI = 0;
+        public static final double shoulder_kD = 0;
+        public static final double shoulder_kG = 0.025;
+        public static final int shoulder_maxVel = 5000;
+        public static final int shoulder_maxAccel = 5000;
+        public static final int shoulder_maxJerk = 5000;
         public static int shoulder_dropOffPos = -2000;
 
     //arm constants
         public static final double arm_GEAR_RATIO = 4*4*4;
-        public static double arm_kP = 0.01;
-        public static double arm_kI = 0;
-        public static double arm_kD = 0;
-        public static double arm_kG = 0.025;
-        public static int arm_maxVel = 5000;
-        public static int arm_maxAccel = 5000;
-        public static int arm_maxJerk = 5000;
+        public static final double arm_kP = 0.01;
+        public static final double arm_kI = 0;
+        public static final double arm_kD = 0;
+        public static final double arm_kG = 0.025;
+        public static final int arm_maxVel = 5000;
+        public static final int arm_maxAccel = 5000;
+        public static final int arm_maxJerk = 5000;
         public static int arm_maxPos = -3000;
         public static int arm_minPos = -600;
 
+    //Jullians claw constants
+        public static double julliansClawOpenBottom = 0.5;
+        public static double julliansClawCloseBottom = 0.75;
+        public static double julliansClawOpenTop = 0.5;
+        public static double julliansClawCloseTop = 0.75;
+
     //drive constants
-        public static float yawMax = 5;
+        public static final float yawMax = 5;
 
 
 
