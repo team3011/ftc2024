@@ -5,20 +5,15 @@ import com.acmerobotics.roadrunner.control.PIDFController;
 import com.acmerobotics.roadrunner.profile.MotionProfile;
 import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
 import com.acmerobotics.roadrunner.profile.MotionState;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotConstants;
 
-public class Shoulder {
+public class ArmV2 {
     private DcMotorEx motor;
-    private TouchSensor touch;
     private PIDCoefficients coeffs;
     private PIDFController controller;
     private int target = 0;
@@ -28,22 +23,21 @@ public class Shoulder {
 
     private double power = 0;
 
-    public Shoulder(DcMotorEx m, TouchSensor t) {
+    public ArmV2(DcMotorEx m) {
         this.motor = m;
-        this.touch = t;
         this.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        this.coeffs = new PIDCoefficients(RobotConstants.shoulder_kP,RobotConstants.shoulder_kI,RobotConstants.shoulder_kD);
-        this.controller = new PIDFController(this.coeffs,0,0,0,(x,y)->RobotConstants.shoulder_kG);
+        this.coeffs = new PIDCoefficients(RobotConstants.arm_kP,RobotConstants.arm_kI,RobotConstants.arm_kD);
+        this.controller = new PIDFController(this.coeffs,0,0,0,(x,y)->RobotConstants.arm_kG);
         this.controller.setOutputBounds(-1,1);
 
         this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                 new MotionState(0,0,0),
                 new MotionState(0,0,0),
-                RobotConstants.shoulder_maxVel,
-                RobotConstants.shoulder_maxAccel,
-                RobotConstants.shoulder_maxJerk
+                RobotConstants.arm_maxVel,
+                RobotConstants.arm_maxAccel,
+                RobotConstants.arm_maxJerk
         );
     }
 
@@ -52,27 +46,9 @@ public class Shoulder {
         return this.motor.getCurrentPosition();
     }
 
-    public boolean getTouchValue() {
-        return this.touch.isPressed();
-    }
-
-    //input > 0 shoulder goes down
-    public void moveShoulderManual(double input){
-        if (this.touch.isPressed() && input > 0){
-            this.motor.setPower(0);
-            this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            this.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        } else {
-            this.motor.setPower(input);
-        }
-    }
-
-    public void resetShoulder(){
-        this.motor.setPower(.25);
-        while (!this.touch.isPressed()) {}
-        this.motor.setPower(0);
-        this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    //input > 0 arm goes down
+    public void moveArmManual(double input){
+        this.motor.setPower(input);
     }
 
     //@param target - encoder counts 0 to negative numbers
@@ -83,9 +59,9 @@ public class Shoulder {
             this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(this.motor.getCurrentPosition(),0,0),
                     new MotionState(this.target,0,0),
-                    RobotConstants.shoulder_maxVel,
-                    RobotConstants.shoulder_maxAccel,
-                    RobotConstants.shoulder_maxJerk
+                    RobotConstants.arm_maxVel,
+                    RobotConstants.arm_maxAccel,
+                    RobotConstants.arm_maxJerk
             );
             this.lastTarget = this.target;
             this.timer.reset();
@@ -104,15 +80,7 @@ public class Shoulder {
         int motor_Pos = this.motor.getCurrentPosition();
         double correction = controller.update(motor_Pos);
 
-        if (this.touch.isPressed() && correction>0) {
-            this.motor.setPower(0);
-            this.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            this.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            this.lastTarget = 0;
-            this.target = 0;
-        } else {
-            this.motor.setPower(correction);
-        }
+        this.motor.setPower(correction);
         return correction;
     }
 }

@@ -11,9 +11,10 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.robotConstants;
+import org.firstinspires.ftc.teamcode.RobotConstants;
 
 public class LiftSystem {
+    /*
     public boolean resetting = false;
     private ElapsedTime resettingTimer;
     public MotorEx leftSlider = null;
@@ -41,21 +42,21 @@ public class LiftSystem {
         this.rightSlider.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
         this.rightSlider.setInverted(true);
 
-        this.coefficients = new PIDCoefficients(robotConstants.kP, robotConstants.kI, robotConstants.kD);
-        this.controller = new PIDFController(this.coefficients, 0, 0, 0, (x,y)->robotConstants.kG);
+        this.coefficients = new PIDCoefficients(RobotConstants.kP, RobotConstants.kI, RobotConstants.kD);
+        this.controller = new PIDFController(this.coefficients, 0, 0, 0, (x,y)-> RobotConstants.kG);
 
         this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                 new MotionState(0,0,0),
                 new MotionState(0,0,0),
-                robotConstants.maxVel,
-                robotConstants.maxAccel,
-                robotConstants.maxJerk
+                RobotConstants.maxVel,
+                RobotConstants.maxAccel,
+                RobotConstants.maxJerk
         );
 
     }
 
     public double getPos(MotorEx motor) {
-        return motor.getCurrentPosition() * robotConstants.Ticks_Per_Rev * robotConstants.GR;
+        return motor.getCurrentPosition() * RobotConstants.Ticks_Per_Rev * RobotConstants.GR;
     }
 
     public int getTarget() {
@@ -63,14 +64,14 @@ public class LiftSystem {
     }
 
     public void setPosition (double targetPos) {
-        this.target = (int) (robotConstants.TPR_CM * robotConstants.GR * targetPos);
+        this.target = (int) (RobotConstants.TPR_CM * RobotConstants.GR * targetPos);
         if (this.target != this.lastTarget) {
             this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(this.leftSlider.getCurrentPosition(),0,0),
                     new MotionState(target,0,0),
-                    robotConstants.maxVel,
-                    robotConstants.maxAccel,
-                    robotConstants.maxJerk
+                    RobotConstants.maxVel,
+                    RobotConstants.maxAccel,
+                    RobotConstants.maxJerk
             );
             this.lastTarget = this.target;
             this.timer.reset();
@@ -91,9 +92,9 @@ public class LiftSystem {
             this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(this.leftSlider.getCurrentPosition(), 0, 0),
                     new MotionState(this.target, 0, 0),
-                    robotConstants.maxVel,
-                    robotConstants.maxAccel,
-                    robotConstants.maxJerk
+                    RobotConstants.maxVel,
+                    RobotConstants.maxAccel,
+                    RobotConstants.maxJerk
             );
             this.lastTarget = this.target;
             this.timer.reset();
@@ -155,7 +156,7 @@ public class LiftSystem {
             double errorLeft = controller.update(leftPosition);
             double errorRight = controller.update(rightPosition);
 
-            if (Math.abs(leftPosition - rightPosition) > robotConstants.maxDifference) {
+            if (Math.abs(leftPosition - rightPosition) > RobotConstants.maxDifference) {
                 this.leftSlider.set(0);
                 this.rightSlider.set(0);
             }
@@ -163,12 +164,12 @@ public class LiftSystem {
                 if ((errorLeft < 0) && (this.leftSense.isPressed())) {
                     this.leftSlider.set(0);
                     this.leftSlider.resetEncoder();
-                } else if ((errorLeft > 0) && (leftPosition > robotConstants.max_Ticks_Raw * robotConstants.GR)) {
+                } else if ((errorLeft > 0) && (leftPosition > RobotConstants.max_Ticks_Raw * RobotConstants.GR)) {
                     this.leftSlider.set(0);
                 } else if ((errorLeft < 0) && (leftPosition > rightPosition)) {
-                    this.leftSlider.set(errorLeft * robotConstants.Reduction);
+                    this.leftSlider.set(errorLeft * RobotConstants.Reduction);
                 } else if ((errorLeft > 0) && (leftPosition > rightPosition + 100)) {
-                    this.leftSlider.set(errorLeft * robotConstants.Reduction);
+                    this.leftSlider.set(errorLeft * RobotConstants.Reduction);
                 } else {
                     this.leftSlider.set(errorLeft);
                 }
@@ -176,12 +177,12 @@ public class LiftSystem {
                 if ((errorRight < 0) && (this.rightSense.isPressed())) {
                     this.rightSlider.set(0);
                     this.rightSlider.resetEncoder();
-                } else if ((errorRight > 0) && (rightPosition > robotConstants.max_Ticks_Raw * robotConstants.GR)) {
+                } else if ((errorRight > 0) && (rightPosition > RobotConstants.max_Ticks_Raw * RobotConstants.GR)) {
                     this.rightSlider.set(0);
                 } else if ((errorRight < 0) && (leftPosition < rightPosition)) {
-                    this.rightSlider.set(errorRight * robotConstants.Reduction);
+                    this.rightSlider.set(errorRight * RobotConstants.Reduction);
                 } else if ((errorRight > 0) && (leftPosition < rightPosition - 100)) {
-                    this.rightSlider.set(errorRight * robotConstants.Reduction);
+                    this.rightSlider.set(errorRight * RobotConstants.Reduction);
                 } else {
                     this.rightSlider.set(errorRight);
                 }
@@ -190,4 +191,6 @@ public class LiftSystem {
         }
 
     }
+
+     */
 }

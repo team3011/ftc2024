@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import java.text.DecimalFormat;
 
-@TeleOp(name="Robot: asdf", group="Robot")
+//@TeleOp(name="Robot: asdf", group="Robot")
 
 public class asdf extends LinearOpMode{
 

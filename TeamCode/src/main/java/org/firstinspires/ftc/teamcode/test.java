@@ -94,18 +94,19 @@ public class test extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        /*
         this.lifter = new LiftSystem(
-          new MotorEx(hardwareMap, "www", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR),
-          new MotorEx(hardwareMap, "lll", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR),
+          new MotorEx(hardwareMap, "www", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR),
+          new MotorEx(hardwareMap, "lll", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR),
           hardwareMap.get(TouchSensor.class, "resetLeft"),
           hardwareMap.get(TouchSensor.class, "resetRight")
         );
 
         this.driveTrain = new DriveSystem(
-                new MotorEx(hardwareMap, "frontLeft", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR),
-                new MotorEx(hardwareMap, "frontRight", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR),
-                new MotorEx(hardwareMap, "backLeft", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR),
-                new MotorEx(hardwareMap, "backRight", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR)
+                new MotorEx(hardwareMap, "frontLeft", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR),
+                new MotorEx(hardwareMap, "frontRight", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR),
+                new MotorEx(hardwareMap, "backLeft", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR),
+                new MotorEx(hardwareMap, "backRight", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR)
         );
 
         this.ahrs = AHRS.getInstance(hardwareMap.get(NavxMicroNavigationSensor.class, "navx"), AHRS.DeviceDataType.kProcessedData);
@@ -154,6 +155,7 @@ public class test extends LinearOpMode {
 
             // Pace this loop so jaw action is reasonable speed.
 
+
+         */
         }
     }
-}

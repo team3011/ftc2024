@@ -11,9 +11,10 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.robotConstants;
+import org.firstinspires.ftc.teamcode.RobotConstants;
 
 public class Arm {
+    /*
     public boolean resetting = false;
     private ElapsedTime resettingTimer;
     public MotorEx motor;
@@ -32,21 +33,21 @@ public class Arm {
 
         this.motor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        this.coefficients = new PIDCoefficients(robotConstants.kP, robotConstants.kI, robotConstants.kD);
-        this.controller = new PIDFController(this.coefficients, 0, 0, 0, (x,y)->robotConstants.kG);
+        this.coefficients = new PIDCoefficients(RobotConstants.kP, RobotConstants.kI, RobotConstants.kD);
+        this.controller = new PIDFController(this.coefficients, 0, 0, 0, (x,y)-> RobotConstants.kG);
 
         this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                 new MotionState(0,0,0),
                 new MotionState(0,0,0),
-                robotConstants.maxVel,
-                robotConstants.maxAccel,
-                robotConstants.maxJerk
+                RobotConstants.maxVel,
+                RobotConstants.maxAccel,
+                RobotConstants.maxJerk
         );
 
     }
 
     public double getPos(MotorEx motor) {
-        return motor.getCurrentPosition() * robotConstants.Ticks_Per_Rev * robotConstants.GR;
+        return motor.getCurrentPosition() * RobotConstants.Ticks_Per_Rev * RobotConstants.GR;
     }
 
     public int getTarget() {
@@ -54,14 +55,14 @@ public class Arm {
     }
 
     public void setPosition (double targetPos) {
-        this.target = (int) (robotConstants.TPR_CM * robotConstants.GR * targetPos);
+        this.target = (int) (RobotConstants.TPR_CM * RobotConstants.GR * targetPos);
         if (this.target != this.lastTarget) {
             this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(this.motor.getCurrentPosition(),0,0),
                     new MotionState(target,0,0),
-                    robotConstants.maxVel,
-                    robotConstants.maxAccel,
-                    robotConstants.maxJerk
+                    RobotConstants.maxVel,
+                    RobotConstants.maxAccel,
+                    RobotConstants.maxJerk
             );
             this.lastTarget = this.target;
             this.timer.reset();
@@ -75,9 +76,9 @@ public class Arm {
             this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(this.motor.getCurrentPosition(), 0, 0),
                     new MotionState(this.target, 0, 0),
-                    robotConstants.maxVel,
-                    robotConstants.maxAccel,
-                    robotConstants.maxJerk
+                    RobotConstants.maxVel,
+                    RobotConstants.maxAccel,
+                    RobotConstants.maxJerk
             );
             this.lastTarget = this.target;
             this.timer.reset();
@@ -112,5 +113,7 @@ public class Arm {
                this.motor.set(errorArm);
             }
 
+
+     */
         }
 

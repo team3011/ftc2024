@@ -29,21 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.ftccommon.SoundPlayer;
 import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
-import java.util.Objects;
 
 
 /**
@@ -58,14 +52,15 @@ import java.util.Objects;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Robot: Teleop POV", group="Robot")
+//@TeleOp(name="Robot: Teleop POV", group="Robot")
 
 
 
 public class RobotTeleopPOV_Linear extends LinearOpMode {
 
     public double getPos(DcMotorEx motor) {
-        return motor.getCurrentPosition() * robotConstants.Ticks_Per_Rev * robotConstants.GR;
+        return 0;
+        //return motor.getCurrentPosition() * RobotConstants.Ticks_Per_Rev * RobotConstants.GR;
     }
 
 

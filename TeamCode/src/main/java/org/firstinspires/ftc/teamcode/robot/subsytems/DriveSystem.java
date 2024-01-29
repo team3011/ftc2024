@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.kauailabs.navx.ftc.AHRS;
 
-import org.firstinspires.ftc.teamcode.robotConstants;
+import org.firstinspires.ftc.teamcode.RobotConstants;
 public class DriveSystem {
 
     public float xValue = 0;
@@ -75,7 +75,7 @@ public class DriveSystem {
             leftBackPower   /= max;
             rightBackPower  /= max;
         }
-        if (this.yawValue > robotConstants.yawMax) {
+        if (this.yawValue > RobotConstants.yawMax) {
             if (this.yawValue > 5) {
                 leftFrontPower = yaw/-10;
                 leftBackPower = yaw/-10;

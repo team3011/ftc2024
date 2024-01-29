@@ -59,8 +59,8 @@ import java.text.DecimalFormat;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@TeleOp(name = "Robot: hellonearth", group = "Robot")
-@Config
+//@TeleOp(name = "Robot: hellonearth", group = "Robot")
+//@Config
 public class hellonearth extends LinearOpMode {
 
     public static double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
@@ -97,8 +97,8 @@ public class hellonearth extends LinearOpMode {
         //servo = hardwareMap.get(Servo.class, "servo");
         //servo2 = hardwareMap.get(Servo.class, "servo2");
         //this.wrist = new wrist(servo, servo2);
-        MotorEx motor = new MotorEx(hardwareMap, "telescope", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR);
-        MotorEx fuck = new MotorEx(hardwareMap, "shoulder", robotConstants.Ticks_Per_Rev*robotConstants.GR, robotConstants.RPM/robotConstants.GR);
+        //MotorEx motor = new MotorEx(hardwareMap, "telescope", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR);
+        //MotorEx fuck = new MotorEx(hardwareMap, "shoulder", RobotConstants.Ticks_Per_Rev* RobotConstants.GR, RobotConstants.RPM/ RobotConstants.GR);
         MotorEx frontLeft = new MotorEx(hardwareMap, "frontLeft", 28*19.2, 312/19.2);
         MotorEx frontRight = new MotorEx(hardwareMap, "frontRight", 28*19.2, 312/19.2);
         MotorEx backLeft = new MotorEx(hardwareMap, "backLeft", 28*19.2, 312/19.2);
@@ -111,8 +111,8 @@ public class hellonearth extends LinearOpMode {
         this.navX = AHRS.getInstance(hardwareMap.get(NavxMicroNavigationSensor.class, "navx"), AHRS.DeviceDataType.kProcessedData);
         this.main = new Wrist(left, right);
         this.main.moveWrist(.5);
-        fuck.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        this.ourArm = new Arm(motor);
+        //fuck.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        //this.ourArm = new Arm(motor);
         DecimalFormat df = new DecimalFormat("#.##");
         // Wait for the start button
         telemetry.addData(">", "Press Start to scan Servo." );
@@ -147,7 +147,7 @@ public class hellonearth extends LinearOpMode {
                 wposition = .05;
             }
             if (gamepad1.x) {
-                this.ourArm.setPosition(5);
+          //      this.ourArm.setPosition(5);
 
             }
 
@@ -160,10 +160,10 @@ public class hellonearth extends LinearOpMode {
             // Set the servo to the new position and pause;
             this.driveTrain.moveMethod(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, this.navX.getYaw());
             this.main.moveWrist(wposition);
-            this.ourArm.update();
+            //this.ourArm.update();
             //nerd.setPosition(position);
        //     motor.set(gamepad1.left_stick_y*MULTIPLIER);
-            fuck.set(gamepad1.right_stick_y*MULTIPLIER);
+            //fuck.set(gamepad1.right_stick_y*MULTIPLIER);
             sleep(CYCLE_MS);
             idle();
         }
