@@ -29,19 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.kauailabs.navx.ftc.AHRS;
-import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystem;
-import org.firstinspires.ftc.teamcode.robot.subsytems.LiftSystem;
 
 
 /**
