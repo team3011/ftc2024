@@ -7,6 +7,7 @@ import java.lang.Math;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.RobotConstants;
@@ -28,10 +29,13 @@ public class DriveSystem {
         this.backLeft = bL;
         this.backRight = bR;
 
-       /* this.frontLeft.(Motor.RunMode.RawPower);
-        this.frontRight.setRunMode(Motor.RunMode.RawPower);
-        this.backLeft.setRunMode(Motor.RunMode.RawPower);
-        this.backRight.setRunMode(Motor.RunMode.RawPower);*/
+        this.frontRight.setDirection(DcMotorEx.Direction.REVERSE);
+        this.backRight.setDirection(DcMotorEx.Direction.REVERSE);
+
+       this.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       this.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       this.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       this.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -40,9 +44,38 @@ public class DriveSystem {
     }
 
 
-    public void moveMethod(float stickX, float stickY, float rightX, float yawCurr) {
+    public void moveMethod(float x, float y, float rx, float yawCurr) {
 
-        double max;
+
+        double botHeading = (yawCurr*2) +90;
+        double pi = 3.1415926;
+        botHeading *= pi/180;
+        x=0;
+
+        // Rotate the movement direction counter to the bot's rotation
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+        rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
+
+        frontLeft.setPower(frontLeftPower);
+        backLeft.setPower(backLeftPower);
+        frontRight.setPower(frontRightPower);
+        backRight.setPower(backRightPower);
+
+
+
+
+        /*  double max;
 
         double axial   = stickX;
         double lateral = (-1) * stickY;
@@ -98,6 +131,7 @@ public class DriveSystem {
         // backleft = -y - x
         this.backRight.setPower(rightBackPower);
         // backright = -y + x
+        */
     }
 
 

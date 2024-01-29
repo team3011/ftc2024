@@ -33,9 +33,9 @@ public class RobotConstants {
 
     //Jullians claw constants
         public static double julliansClawOpenBottom = 0.5;
-        public static double julliansClawCloseBottom = 0.75;
+        public static double julliansClawCloseBottom = 0.3;
         public static double julliansClawOpenTop = 0.5;
-        public static double julliansClawCloseTop = 0.75;
+        public static double julliansClawCloseTop = 0.6;
 
     //lift constants
         public static final double lift_kP = 0.01;

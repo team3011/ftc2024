@@ -17,11 +17,13 @@ import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystem;
 import org.firstinspires.ftc.teamcode.robot.subsytems.JulliansClaw;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Lift;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Shoulder;
+import org.firstinspires.ftc.teamcode.robot.subsytems.Wrist;
 
 @TeleOp(name = "TeleOppV1", group = "Robot")
 public class TeleOppV1 extends LinearOpMode {
     @Override
     public void runOpMode() {
+        double wposition = 0.5;
         Shoulder shoulder = new Shoulder(
                 hardwareMap.get(DcMotorEx.class,"shoulder"),
                 hardwareMap.get(TouchSensor.class,"shoulderSensor2"));
@@ -43,13 +45,16 @@ public class TeleOppV1 extends LinearOpMode {
                 AHRS.DeviceDataType.kProcessedData);
         Lift lift = new Lift(
                 hardwareMap.get(DcMotorEx.class, "lift"));
+        Wrist wrist  = new Wrist(
+                hardwareMap.get(Servo.class, "left"),
+                hardwareMap.get(Servo.class, "right"));
 
         waitForStart();
         //arm.setPosition(RobotConstants.arm_minPos);
 
         // Scan servo till stop pressed.
         while(opModeIsActive()){
-            float left_y = gamepad1.left_stick_y;
+            float left_y = -gamepad1.left_stick_y;
             float right_y = gamepad1.right_stick_y;
             float left_x = gamepad1.left_stick_x;
             float right_x = gamepad1.right_stick_x;
@@ -85,13 +90,21 @@ public class TeleOppV1 extends LinearOpMode {
             if (gamepad1.y) {
                 //arm.setPosition(RobotConstants.arm_minPos);
             }
+            if (gamepad1.dpad_up) {
+                wposition += .05;
+            }
+            if (gamepad1.dpad_down) {
+                wposition -= 0.05;
+            }
 
             //double correction = shoulder.update();
             //arm.update();
 
-            arm.moveManual(left_y);
-            shoulder.moveManual(right_y);
-            lift.moveManual(left_x);
+           // arm.moveManual(left_y);
+            //shoulder.moveManual(right_y);
+            //lift.moveManual(left_x);
+            wrist.moveWrist(wposition);
+            driveTrain.moveMethod(left_x,left_y,right_x,yawCurr);
 
             telemetry.addData("roll",navx.getRoll());
             telemetry.addData("arm Position", arm.getEncoderValue() );
@@ -99,6 +112,7 @@ public class TeleOppV1 extends LinearOpMode {
             telemetry.addData("shoulder Position", shoulder.getEncoderValue() );
             telemetry.addData("shoulder Target", shoulder.getTarget());
             telemetry.addData("lift position", lift.getEncoderValue());
+            telemetry.addData("wrist pos", wposition);
             //telemetry.addData("shoulder correction", correction);
             telemetry.addData("stick", left_y);
             telemetry.update();
