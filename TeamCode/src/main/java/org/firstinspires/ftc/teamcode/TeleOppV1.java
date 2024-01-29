@@ -92,6 +92,8 @@ public class TeleOppV1 extends LinearOpMode {
             arm.moveManual(left_y);
             shoulder.moveManual(right_y);
             lift.moveManual(left_x);
+
+            telemetry.addData("roll",navx.getRoll());
             telemetry.addData("arm Position", arm.getEncoderValue() );
             telemetry.addData("arm Target",arm.getTarget());
             telemetry.addData("shoulder Position", shoulder.getEncoderValue() );
