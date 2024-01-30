@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.robot.subsytems.ArmV2;
 import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystem;
+import org.firstinspires.ftc.teamcode.robot.subsytems.DriveSystemV2;
 import org.firstinspires.ftc.teamcode.robot.subsytems.JulliansClaw;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Lift;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Shoulder;
@@ -23,7 +24,7 @@ import org.firstinspires.ftc.teamcode.util.Encoder;
 @TeleOp(name = "TeleOppV1", group = "Robot")
 public class TeleOppV1 extends LinearOpMode {
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         double wposition = 0.5;
         Shoulder shoulder = new Shoulder(
                 hardwareMap.get(DcMotorEx.class,"shoulder"),
@@ -36,33 +37,40 @@ public class TeleOppV1 extends LinearOpMode {
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
-        DriveSystem driveTrain = new DriveSystem(
+        AHRS navx = AHRS.getInstance(
+                hardwareMap.get(NavxMicroNavigationSensor.class, "navx"),
+                AHRS.DeviceDataType.kProcessedData);
+        DriveSystemV2 driveTrain = new DriveSystemV2(
                 hardwareMap.get(DcMotorEx.class, "frontLeft"),
                 hardwareMap.get(DcMotorEx.class, "frontRight"),
                 hardwareMap.get(DcMotorEx.class, "backLeft"),
                 hardwareMap.get(DcMotorEx.class, "backRight"),
+                navx,
                 new Encoder(hardwareMap.get(DcMotorEx.class, "backLeft")),
                 new Encoder(hardwareMap.get(DcMotorEx.class, "backRight")));
-        AHRS navx = AHRS.getInstance(
-                hardwareMap.get(NavxMicroNavigationSensor.class, "navx"),
-                AHRS.DeviceDataType.kProcessedData);
         Lift lift = new Lift(
                 hardwareMap.get(DcMotorEx.class, "lift"));
         Wrist wrist  = new Wrist(
                 hardwareMap.get(Servo.class, "left"),
                 hardwareMap.get(Servo.class, "right"));
 
+        while (navx.isCalibrating()){
+            telemetry.addData("navx calibation...",navx.isCalibrating());
+            telemetry.update();
+        }
+
+
         waitForStart();
+
         //arm.setPosition(RobotConstants.arm_minPos);
-        driveTrain.resetEncoder();
+        //driveTrain.resetEncoder();
 
         // Scan servo till stop pressed.
         while(opModeIsActive()){
-            float left_y = -gamepad1.left_stick_y;
+            float left_y = gamepad1.left_stick_y;
             float right_y = gamepad1.right_stick_y;
             float left_x = gamepad1.left_stick_x;
             float right_x = gamepad1.right_stick_x;
-            float yawCurr = navx.getYaw();
 
             if (Math.abs(left_y)<0.1){
                 left_y = 0;
@@ -79,26 +87,27 @@ public class TeleOppV1 extends LinearOpMode {
 
             if (gamepad1.a) {
                 //shoulder.setPosition(RobotConstants.shoulder_dropOffPos);
-                claw.closeBottom();
-                claw.closeTop();
+                //claw.closeBottom();
+                //claw.closeTop();
             }
             if (gamepad1.b) {
                 //shoulder.setPosition(0);
-                claw.openBottom();
-                claw.openTop();
+                //claw.openBottom();
+                //claw.openTop();
             }
 
             if (gamepad1.x) {
                 //arm.setPosition(RobotConstants.arm_maxPos);
             }
             if (gamepad1.y) {
+                driveTrain.testMotors(5000,.5);
                 //arm.setPosition(RobotConstants.arm_minPos);
             }
             if (gamepad1.dpad_up) {
-                wposition += .05;
+                //wposition += .05;
             }
             if (gamepad1.dpad_down) {
-                wposition -= 0.05;
+                //wposition -= 0.05;
             }
 
             //double correction = shoulder.update();
@@ -107,22 +116,24 @@ public class TeleOppV1 extends LinearOpMode {
            // arm.moveManual(left_y);
             //shoulder.moveManual(right_y);
             //lift.moveManual(left_x);
-            wrist.moveWrist(wposition);
-            driveTrain.moveMethod(left_x,left_y,right_x,yawCurr);
+            //wrist.moveWrist(wposition);
 
-            telemetry.addData("roll",navx.getRoll());
-            telemetry.addData("arm Position", arm.getEncoderValue() );
-            telemetry.addData("arm Target",arm.getTarget());
-            telemetry.addData("shoulder Position", shoulder.getEncoderValue() );
-            telemetry.addData("shoulder Target", shoulder.getTarget());
-            telemetry.addData("lift position", lift.getEncoderValue());
-            telemetry.addData("wrist pos", wposition);
-            //telemetry.addData("shoulder correction", correction);
+            driveTrain.drive(left_x,left_y,right_x);
+
+            telemetry.addData("figureoutshort", driveTrain.figureOutWhatIsShorter());
+            telemetry.addData("turning info",driveTrain.getWhatHeadingDo());
+            //telemetry.addData("arm Position", arm.getEncoderValue() );
+            //telemetry.addData("arm Target",arm.getTarget());
+            //telemetry.addData("shoulder Position", shoulder.getEncoderValue() );
+            //telemetry.addData("shoulder Target", shoulder.getTarget());
+            //telemetry.addData("lift position", lift.getEncoderValue());
+            //telemetry.addData("wrist pos", wposition);
+            ////telemetry.addData("shoulder correction", correction);
             telemetry.addData("stick", left_y);
-            telemetry.addData("perp wheel", driveTrain.perpReturn());
-            telemetry.addData("inches perp", driveTrain.perpReturnInches());
-            telemetry.addData("par wheel", driveTrain.parReturn());
-            telemetry.addData("inches par", driveTrain.parReturnInches());
+            //telemetry.addData("perp wheel", driveTrain.perpReturn());
+            //telemetry.addData("inches perp", driveTrain.perpReturnInches());
+            //telemetry.addData("par wheel", driveTrain.parReturn());
+            //telemetry.addData("inches par", driveTrain.parReturnInches());
 
             telemetry.update();
         }

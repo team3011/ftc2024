@@ -53,7 +53,10 @@ public class RobotConstants {
     //drive constants
         public static final float yawMax = 5;
         public static float yawCheck = 2.5F;
-
+        public static double MULTIPLIER = 0.5;
+        public static double STICK_TOLERANCE = 0.1;
+        public static double MINIMUM_TURNING_SPEED = 0.05;
+        public static double ANGULAR_TOLERANCE = Math.toRadians(0.5);
 
 
 
