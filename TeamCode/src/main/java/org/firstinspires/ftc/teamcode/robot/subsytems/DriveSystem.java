@@ -11,6 +11,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.RobotConstants;
+import org.firstinspires.ftc.teamcode.drive.TwoWheelTrackingLocalizer;
+import org.firstinspires.ftc.teamcode.util.Encoder;
+
 public class DriveSystem {
 
     public float xValue = 0;
@@ -20,43 +23,91 @@ public class DriveSystem {
     DcMotorEx frontRight;
     DcMotorEx backLeft;
     DcMotorEx backRight;
+    boolean checker = false;
+    Encoder perpEncoder;
+    Encoder parEncoder;
     AHRS navX;
 
 
-    public DriveSystem(DcMotorEx fL, DcMotorEx fR, DcMotorEx bL, DcMotorEx bR) {
+    public DriveSystem(DcMotorEx fL, DcMotorEx fR, DcMotorEx bL, DcMotorEx bR, Encoder parallel, Encoder perpindicular) {
         this.frontLeft = fL;
         this.frontRight = fR;
         this.backLeft = bL;
         this.backRight = bR;
+        this.parEncoder = parallel;
+        this.perpEncoder = perpindicular;
 
-        this.frontRight.setDirection(DcMotorEx.Direction.REVERSE);
-        this.backRight.setDirection(DcMotorEx.Direction.REVERSE);
+        //this.parEncoder.setDirection(Encoder.Direction.REVERSE);
+
+
+        this.frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        this.backLeft.setDirection(DcMotorEx.Direction.REVERSE);
 
        this.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
        this.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
        this.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
        this.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
     }
 
 
-    public void straighten() {
+    public void resetEncoder() {
+        this.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        this.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
+
+    public int perpReturn() {
+        return this.perpEncoder.getCurrentPosition();
+    }
+
+    public int parReturn() {
+        return this.parEncoder.getCurrentPosition();
+    }
+
+    public double perpReturnInches() {
+        return TwoWheelTrackingLocalizer.encoderTicksToInches(perpReturn());
+    }
+
+    public double parReturnInches() {
+        return TwoWheelTrackingLocalizer.encoderTicksToInches(parReturn());
+    }
+
+
 
 
     public void moveMethod(float x, float y, float rx, float yawCurr) {
 
 
-        double botHeading = (yawCurr*2) +90;
+        double botHeading = (yawCurr) +90;
         double pi = 3.1415926;
         botHeading *= pi/180;
-        x=0;
+
+        if (yawCurr >= RobotConstants.yawMax) {
+            checker = true;
+        }
+        if (checker) {
+            if (yawCurr <= RobotConstants.yawCheck) {
+                checker = false;
+            }
+            else {
+                x = 0;
+                y = 0;
+                rx = (yawCurr - RobotConstants.yawCheck);
+            }
+
+        }
 
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
         rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,

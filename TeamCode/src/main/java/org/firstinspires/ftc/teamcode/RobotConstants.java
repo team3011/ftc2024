@@ -37,6 +37,8 @@ public class RobotConstants {
         public static double julliansClawOpenTop = 0.5;
         public static double julliansClawCloseTop = 0.6;
 
+
+
     //lift constants
         public static final double lift_kP = 0.01;
         public static final double lift_kI = 0;
@@ -50,6 +52,7 @@ public class RobotConstants {
 
     //drive constants
         public static final float yawMax = 5;
+        public static float yawCheck = 2.5F;
 
 
 

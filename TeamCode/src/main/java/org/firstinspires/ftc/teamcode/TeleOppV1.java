@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.robot.subsytems.JulliansClaw;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Lift;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Shoulder;
 import org.firstinspires.ftc.teamcode.robot.subsytems.Wrist;
+import org.firstinspires.ftc.teamcode.util.Encoder;
 
 @TeleOp(name = "TeleOppV1", group = "Robot")
 public class TeleOppV1 extends LinearOpMode {
@@ -39,7 +40,9 @@ public class TeleOppV1 extends LinearOpMode {
                 hardwareMap.get(DcMotorEx.class, "frontLeft"),
                 hardwareMap.get(DcMotorEx.class, "frontRight"),
                 hardwareMap.get(DcMotorEx.class, "backLeft"),
-                hardwareMap.get(DcMotorEx.class, "backRight"));
+                hardwareMap.get(DcMotorEx.class, "backRight"),
+                new Encoder(hardwareMap.get(DcMotorEx.class, "backLeft")),
+                new Encoder(hardwareMap.get(DcMotorEx.class, "backRight")));
         AHRS navx = AHRS.getInstance(
                 hardwareMap.get(NavxMicroNavigationSensor.class, "navx"),
                 AHRS.DeviceDataType.kProcessedData);
@@ -51,6 +54,7 @@ public class TeleOppV1 extends LinearOpMode {
 
         waitForStart();
         //arm.setPosition(RobotConstants.arm_minPos);
+        driveTrain.resetEncoder();
 
         // Scan servo till stop pressed.
         while(opModeIsActive()){
@@ -115,6 +119,11 @@ public class TeleOppV1 extends LinearOpMode {
             telemetry.addData("wrist pos", wposition);
             //telemetry.addData("shoulder correction", correction);
             telemetry.addData("stick", left_y);
+            telemetry.addData("perp wheel", driveTrain.perpReturn());
+            telemetry.addData("inches perp", driveTrain.perpReturnInches());
+            telemetry.addData("par wheel", driveTrain.parReturn());
+            telemetry.addData("inches par", driveTrain.parReturnInches());
+
             telemetry.update();
         }
     }
