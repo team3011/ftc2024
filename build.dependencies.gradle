@@ -4,8 +4,7 @@ repositories {
     maven { url = 'https://maven.brott.dev/' }
     flatDir {
         dirs rootProject.file('libs')
-        //dirs 'libs', 'C:\\navx-mxp\\android\\libs'
-        dirs 'libs', 'C:\\navx-micro\\android\\libs'
+        dirs 'libs', 'C:\\navx-mxp\\android\\libs'
     }
 }
 

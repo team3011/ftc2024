@@ -97,6 +97,9 @@ public class DriveSystem {
     public void moveMethod(float x, float y, float rx, float yawCurr) {
 
 
+        y = 0;
+        rx = 0;
+        yawCurr = 0;
         double botHeading = (yawCurr) +90;
         double pi = 3.1415926;
         botHeading *= pi/180;
