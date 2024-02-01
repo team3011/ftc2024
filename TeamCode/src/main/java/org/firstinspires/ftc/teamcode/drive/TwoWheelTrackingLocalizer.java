@@ -7,7 +7,7 @@ import com.acmerobotics.roadrunner.localization.TwoTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-//import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.ftc.AHRS;
 import org.firstinspires.ftc.teamcode.util.Encoder;
 
 import java.util.Arrays;
