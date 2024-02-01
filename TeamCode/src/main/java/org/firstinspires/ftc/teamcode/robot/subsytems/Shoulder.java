@@ -80,6 +80,8 @@ public class Shoulder {
         //convert centimeters to ticks
         this.target = t;
         if (this.target != this.lastTarget) {
+            this.coeffs = new PIDCoefficients(RobotConstants.shoulder_kP,RobotConstants.shoulder_kI,RobotConstants.shoulder_kD);
+            this.controller = new PIDFController(this.coeffs,0,0,0,(x,y)->RobotConstants.shoulder_kG);
             this.profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(this.motor.getCurrentPosition(),0,0),
                     new MotionState(this.target,0,0),

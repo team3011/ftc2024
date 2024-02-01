@@ -14,7 +14,7 @@ public class ResetRobot extends LinearOpMode {
     public void runOpMode() {
         Shoulder shoulder = new Shoulder(
                 hardwareMap.get(DcMotorEx.class, "shoulder"),
-                hardwareMap.get(TouchSensor.class, "shoulderSensor2"));
+                hardwareMap.get(TouchSensor.class, "shoulderSensor"));
 
         waitForStart();
         shoulder.resetShoulder();

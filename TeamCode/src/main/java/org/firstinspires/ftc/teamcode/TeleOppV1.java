@@ -28,7 +28,7 @@ public class TeleOppV1 extends LinearOpMode {
         double wposition = 0.5;
         Shoulder shoulder = new Shoulder(
                 hardwareMap.get(DcMotorEx.class,"shoulder"),
-                hardwareMap.get(TouchSensor.class,"shoulderSensor2"));
+                hardwareMap.get(TouchSensor.class,"shoulderSensor"));
         ArmV2 arm = new ArmV2(
                 hardwareMap.get(DcMotorEx.class,"telescope"));
         JulliansClaw claw = new JulliansClaw(
@@ -86,12 +86,12 @@ public class TeleOppV1 extends LinearOpMode {
             }
 
             if (gamepad1.a) {
-                //shoulder.setPosition(RobotConstants.shoulder_dropOffPos);
+                shoulder.setPosition(RobotConstants.shoulder_dropOffPos);
                 //claw.closeBottom();
                 //claw.closeTop();
             }
             if (gamepad1.b) {
-                //shoulder.setPosition(0);
+                shoulder.setPosition(0);
                 //claw.openBottom();
                 //claw.openTop();
             }
@@ -100,7 +100,7 @@ public class TeleOppV1 extends LinearOpMode {
                 //arm.setPosition(RobotConstants.arm_maxPos);
             }
             if (gamepad1.y) {
-                driveTrain.testMotors(5000,.5);
+                //driveTrain.testMotors(5000,.5);
                 //arm.setPosition(RobotConstants.arm_minPos);
             }
             if (gamepad1.dpad_up) {
@@ -110,25 +110,27 @@ public class TeleOppV1 extends LinearOpMode {
                 //wposition -= 0.05;
             }
 
-            //double correction = shoulder.update();
+            shoulder.moveManual(right_y);
+            double correction = 0;
+            //correction = shoulder.update();
             //arm.update();
 
-           // arm.moveManual(left_y);
-            //shoulder.moveManual(right_y);
-            //lift.moveManual(left_x);
+            arm.moveManual(left_y);
+            lift.moveManual(left_x);
+
             //wrist.moveWrist(wposition);
 
-            driveTrain.drive(left_x,left_y,right_x);
+            //driveTrain.drive(left_x,left_y,0);
 
-            telemetry.addData("figureoutshort", driveTrain.figureOutWhatIsShorter());
-            telemetry.addData("turning info",driveTrain.getWhatHeadingDo());
-            //telemetry.addData("arm Position", arm.getEncoderValue() );
-            //telemetry.addData("arm Target",arm.getTarget());
-            //telemetry.addData("shoulder Position", shoulder.getEncoderValue() );
-            //telemetry.addData("shoulder Target", shoulder.getTarget());
+            //telemetry.addData("figureoutshort", driveTrain.figureOutWhatIsShorter());
+            //telemetry.addData("turning info",driveTrain.getWhatHeadingDo());
+            telemetry.addData("arm Position", arm.getEncoderValue() );
+            telemetry.addData("arm Target",arm.getTarget());
+            telemetry.addData("shoulder Position", shoulder.getEncoderValue());
+            telemetry.addData("shoulder Target", shoulder.getTarget());
             //telemetry.addData("lift position", lift.getEncoderValue());
             //telemetry.addData("wrist pos", wposition);
-            ////telemetry.addData("shoulder correction", correction);
+            telemetry.addData("shoulder correction", correction);
             telemetry.addData("stick", left_y);
             //telemetry.addData("perp wheel", driveTrain.perpReturn());
             //telemetry.addData("inches perp", driveTrain.perpReturnInches());

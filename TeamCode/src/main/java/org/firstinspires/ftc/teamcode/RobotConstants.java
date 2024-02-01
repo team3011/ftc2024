@@ -10,13 +10,13 @@ public class RobotConstants {
 
     //shoulder constants
         public static final double shoulder_GEAR_RATIO = (108.0/16.0)*3*3*4;
-        public static final double shoulder_kP = 0.01;
-        public static final double shoulder_kI = 0;
-        public static final double shoulder_kD = 0;
-        public static final double shoulder_kG = 0.025;
-        public static final int shoulder_maxVel = 5000;
-        public static final int shoulder_maxAccel = 5000;
-        public static final int shoulder_maxJerk = 5000;
+        public static double shoulder_kP = 0.008;
+        public static double shoulder_kI = 0;
+        public static double shoulder_kD = 0;
+        public static double shoulder_kG = 0.025;
+        public static int shoulder_maxVel = 500000;
+        public static int shoulder_maxAccel = 6000;
+        public static int shoulder_maxJerk = 30000;
         public static int shoulder_dropOffPos = -2000;
 
     //arm constants
@@ -32,10 +32,10 @@ public class RobotConstants {
         public static int arm_minPos = -600;
 
     //Jullians claw constants
-        public static double julliansClawOpenBottom = 0.5;
-        public static double julliansClawCloseBottom = 0.3;
-        public static double julliansClawOpenTop = 0.5;
-        public static double julliansClawCloseTop = 0.6;
+        public static final double julliansClawOpenBottom = 0.5;
+        public static final double julliansClawCloseBottom = 0.3;
+        public static final double julliansClawOpenTop = 0.5;
+        public static final double julliansClawCloseTop = 0.6;
 
 
 
@@ -52,11 +52,11 @@ public class RobotConstants {
 
     //drive constants
         public static final float yawMax = 5;
-        public static float yawCheck = 2.5F;
-        public static double MULTIPLIER = 0.5;
-        public static double STICK_TOLERANCE = 0.1;
-        public static double MINIMUM_TURNING_SPEED = 0.05;
-        public static double ANGULAR_TOLERANCE = Math.toRadians(0.5);
+        public static final float yawCheck = 2.5F;
+        public static double MULTIPLIER = 1;
+        public static final double STICK_TOLERANCE = 0.1;
+        public static final double MINIMUM_TURNING_SPEED = 0.05;
+        public static final double ANGULAR_TOLERANCE = Math.toRadians(0.5);
 
 
 

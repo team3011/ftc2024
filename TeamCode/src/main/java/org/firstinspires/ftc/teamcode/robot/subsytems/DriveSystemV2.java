@@ -74,9 +74,9 @@ public class DriveSystemV2 {
         //+,+,- f goes f, l goes l,rot r goes right
 
 
-        double x = leftStickY * RobotConstants.MULTIPLIER;
-        double y = leftStickX * RobotConstants.MULTIPLIER; // Counteract imperfect strafing
-        double rx = - rightStickX * RobotConstants.MULTIPLIER; //what way we want to rotate
+        double x = -leftStickY * RobotConstants.MULTIPLIER;
+        double y = -leftStickX * RobotConstants.MULTIPLIER; // Counteract imperfect strafing
+        double rx = -rightStickX * 0.5 * RobotConstants.MULTIPLIER; //what way we want to rotate
 
         double robotHeading = Math.toRadians(this.navX.getYaw());
 
