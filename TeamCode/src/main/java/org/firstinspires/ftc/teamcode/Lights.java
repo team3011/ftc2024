@@ -41,7 +41,7 @@ public class Lights extends LinearOpMode{
             if (gamepad1.dpad_down) {
                 spos -= 0.00495;
             } */
-            if(gamepad1.a) { // hearbeat red
+            if(gamepad1.a) { // heartbeat red
                 spos = 0.42922;
             }
             if (gamepad1.b)  { // heartbeat blue
